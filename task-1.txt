@@ -1,4 +1,53 @@
-Öğrenci No:
-AD-SOYAD:
-
+Öğrenci No:250541078
+AD-SOYAD:Ecenur Üner
+KONU:En kısa sürede üniversiteye gitme algoritması
 Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Başla
+
+// 1. Girdi Al
+Sınıf = KullanıcıdanMevcutSınıfıAl()
+HedefÜniversite = KullanıcıdanHedefÜniversiteyiAl()
+Alan = KullanıcıdanAlanTercihiniAl() // Sayısal, Sözel, Eşit Ağırlık, Yetenek vb.
+MevcutBaşarıDurumu = KullanıcıdanNotOrtalamalarınıAl()
+GünlükÇalışmaSüresi = KullanıcıdanGünlükÇalışmaSüresiAl()
+
+// 2. Koşullu Durumlar
+Eğer Sınıf < 12 ise
+    SınavYılınaKalanZaman = 12 - Sınıf
+    HedefBelirle(HedefÜniversite, Alan)
+    ÇalışmaPlanıOluştur(SınavYılınaKalanZaman, GünlükÇalışmaSüresi)
+Aksi halde
+    SınavYılınaKalanZaman = 0
+    Eğer MevcutBaşarıDurumu yeterli değilse
+        YoğunlaştırılmışÇalışmaPlanıOluştur(GünlükÇalışmaSüresi)
+    Aksi halde
+        DenemeSınavlarıBaşlat()
+
+// 3. Döngüsel İşlemler
+HaftalıkPlan = OluşturulanÇalışmaPlanı
+Hafta = 1
+
+Döngü başlat: HerHafta için
+    GünlükKonular = HaftalıkPlan[Hafta]
+    HerGün için
+        KonuÇalış(GünlükKonular[Gün])
+        SoruÇöz(GünlükKonular[Gün])
+        Eğer PerformansDüşükse
+            EkDestekAl()
+    Hafta += 1
+    Eğer DenemeSınavıZamanıysa
+        DenemeSınavıYap()
+        PerformansAnaliziYap()
+        PlanıGüncelle()
+
+Döngü bitir
+
+// 4. Sonuç Kontrolü
+Eğer SınavSonucu >= HedefÜniversitePuanı ise
+    YazOkulu veya EkTercihHazırlığıYap()
+    ÜniversiteyeKayıtOl()
+Aksi halde
+    AlternatifPlanOluştur()
+    TekrarHazırlıkYap()
+
+Bitir
