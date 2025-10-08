@@ -1,4 +1,47 @@
-Öğrenci No:
-AD-SOYAD:
-
+Öğrenci No:250541078
+AD-SOYAD:Ecenur Üner
+Konu:Lego ile belirli şekil yapma planı
 Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Başla
+
+// 1. Girdi Al
+HedefŞekil = KullanıcıdanŞekilVerisiAl() // Örn: "Ev", "Araba", "Kule"
+ParçaEnvanteri = MevcutLEGOParçalarınıListele()
+Plan = HedefŞekilİçinYapımPlanıOluştur(HedefŞekil)
+YapımAlanı = BoşAlanOluştur()
+
+// 2. Döngü: Her adım için şekil planını uygula
+Adım = 1
+ToplamAdım = Uzunluk(Plan)
+
+Döngü başlat: Adım <= ToplamAdım iken
+
+    ParçaTipi = Plan[Adım]["ParçaTipi"]
+    Konum = Plan[Adım]["Konum"]
+    Renk = Plan[Adım]["Renk"]
+
+    // 3. Koşullu Durum: Parça mevcut mu?
+    Eğer ParçaEnvanteri içinde ParçaTipi ve Renk varsa
+        ParçaYerleştir(YapımAlanı, ParçaTipi, Konum, Renk)
+        ParçaEnvanteri'den ParçaSil(ParçaTipi, Renk)
+        Yazdır("Adım " + Adım + ": Parça yerleştirildi.")
+    Aksi halde
+        Yazdır("Adım " + Adım + ": Gerekli parça eksik! Alternatif aranıyor...")
+        AlternatifParça = UygunAlternatifBul(ParçaTipi, Renk)
+        Eğer AlternatifParça varsa
+            ParçaYerleştir(YapımAlanı, AlternatifParça["Tip"], Konum, AlternatifParça["Renk"])
+            ParçaEnvanteri'den ParçaSil(AlternatifParça["Tip"], AlternatifParça["Renk"])
+            Yazdır("Alternatif parça yerleştirildi.")
+        Aksi halde
+            Yazdır("Adım " + Adım + ": Şekil tamamlanamadı. Parça eksik.")
+            Çık
+
+    Adım += 1
+
+Döngü bitir
+
+// 4. Sonuç
+Yazdır("Şekil başarıyla oluşturuldu!")
+YapımAlanıGöster()
+
+Bitir
