@@ -1,4 +1,42 @@
-Öğrenci No:
-AD-SOYAD:
-
+Öğrenci No:25051078
+AD-SOYAD:Ecenur Üner
+Konu:Müzik koleksiyonunu düzenleme
 Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Başla
+
+// 1. Girdi Al
+MüzikKlasörü = KullanıcıdanKlasörYoluAl()
+Kriterler = ["Tür", "Sanatçı", "Albüm", "Yıl", "Bitrate"]
+Koleksiyon = MüzikKlasörüİçindekiDosyalarıListele()
+
+// 2. Döngü: Her dosya için işlem yap
+HerDosya için Dosya in Koleksiyon
+
+    // 3. Metadata'yı oku
+    Metadata = DosyaMetadataOku(Dosya)
+
+    // 4. Koşullu Durumlar
+    Eğer Metadata eksikse
+        EksikBilgiListesineEkle(Dosya)
+        DevamEt
+
+    Eğer Metadata["Bitrate"] < 128kbps ise
+        DüşükKaliteListesineEkle(Dosya)
+        DevamEt
+
+    // 5. Klasör Yapısı Oluştur
+    HedefKlasör = MüzikKlasörü + "/" + Metadata["Tür"] + "/" + Metadata["Sanatçı"] + "/" + Metadata["Albüm"]
+    Eğer HedefKlasör yoksa
+        KlasörOluştur(HedefKlasör)
+
+    // 6. Dosyayı taşı
+    DosyaTaşı(Dosya, HedefKlasör)
+
+Döngü bitir
+
+// 7. Raporlama
+Yazdır("Eksik Bilgili Dosyalar: " + Uzunluk(EksikBilgiListesi))
+Yazdır("Düşük Kaliteli Dosyalar: " + Uzunluk(DüşükKaliteListesi))
+Yazdır("Toplam Düzenlenen Dosya: " + Uzunluk(Koleksiyon) - Uzunluk(EksikBilgiListesi) - Uzunluk(DüşükKaliteListesi))
+
+Bitir
