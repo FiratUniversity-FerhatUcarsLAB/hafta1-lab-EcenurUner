@@ -1,4 +1,49 @@
-Öğrenci No:
-AD-SOYAD:
-
+Öğrenci No:250541078
+AD-SOYAD:Ecenur Üner
+Konu:
 Lütfen seçtiğiniz algoritmaya ait çözümü ve diğer isterleri aşağıya ekleyiniz:
+Başla
+
+// 1. Girdi Al
+MedyaDosyası = KullanıcıdanDosyaAl()
+DesteklenenDiller = ["Türkçe", "İngilizce", "Almanca", "Fransızca", "Arapça", "Japonca", "İspanyolca"]
+KullanıcıTercihi = KullanıcıdanDilSeçimiAl()
+AltyazıVeritabanı = AltyazıDosyalarınıYükle(MedyaDosyası)
+
+// 2. Koşullu Durum: Dil desteği kontrolü
+Eğer KullanıcıTercihi not in DesteklenenDiller ise
+    Yazdır("Seçilen dil desteklenmiyor. Varsayılan dil Türkçe olarak ayarlandı.")
+    KullanıcıTercihi = "Türkçe"
+
+// 3. Altyazı dosyasını eşleştir
+AltyazıDosyası = AltyazıVeritabanı[KullanıcıTercihi]
+
+Eğer AltyazıDosyası mevcut değilse
+    Yazdır("Seçilen dil için altyazı bulunamadı. Alternatif aranıyor...")
+    AlternatifDil = EnYakınDilBul(DesteklenenDiller, KullanıcıTercihi)
+    AltyazıDosyası = AltyazıVeritabanı[AlternatifDil]
+    Yazdır("Alternatif dil olarak " + AlternatifDil + " seçildi.")
+
+// 4. Döngü: Altyazıları zamanla eşleştir
+ZamanlayıcıBaşlat()
+Döngü başlat: MedyaOynatılıyor ise
+    MevcutZaman = MedyaZamanAl()
+    AltyazıSatırı = AltyazıDosyası[MevcutZaman]
+
+    Eğer AltyazıSatırı mevcutsa
+        EkranaYaz(AltyazıSatırı)
+    Aksi halde
+        EkranaYaz("")
+
+Döngü bitir
+
+// 5. Kullanıcı etkileşimi
+KullanıcıDilDeğiştirirse
+    YeniDil = KullanıcıdanYeniDilAl()
+    Eğer YeniDil in DesteklenenDiller ise
+        AltyazıDosyası = AltyazıVeritabanı[YeniDil]
+        Yazdır("Altyazı dili " + YeniDil + " olarak değiştirildi.")
+    Aksi halde
+        Yazdır("Yeni dil desteklenmiyor.")
+
+Bitir
